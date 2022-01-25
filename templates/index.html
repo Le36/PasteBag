@@ -5,9 +5,14 @@
     <title>PasteBag</title>
 </head>
 <body>
+{% if session.username %}
+    You are logged in as {{ session.username }} |
+    <a href="/logout">Log out</a>
+{% else %}
+    <a href="/login">Log in</a>
+{% endif %}
+<hr>
 <form action="/" method="POST">
-    <a href="/login">/login</a>
-    <hr>
     Create your paste:
     <br>
     <label>
@@ -16,5 +21,6 @@
     <br>
     <input type="submit" value="Create">
 </form>
+
 </body>
 </html>
