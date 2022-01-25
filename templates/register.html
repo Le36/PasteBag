@@ -6,8 +6,11 @@
 </head>
 <body>
 Got account already? Login
-<a href="/register">here</a>
+<a href="/login">here</a>
 <hr>
+{% if error %}
+    {{ error }}
+{% endif %}
 <form action="/register" method="POST">
     <p>Username:<br>
         <input type="text" name="username"></p>

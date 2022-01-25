@@ -21,16 +21,14 @@ def login():
         result = db.session.execute(sql, {"username": username})
         user = result.fetchone()
         if not user:
-            print("user not found")
-            return render_template("login.html")
+            return render_template("login.html", error="Invalid username")
         else:
             hash_value = user.password
             if check_password_hash(hash_value, password):
                 session["username"] = username
                 return redirect("/")
             else:
-                print("wrong passwd")
-                return render_template("login.html")
+                return render_template("login.html", error="Invalid password.")
 
 
 @app.route("/logout")
@@ -46,8 +44,14 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        hash_value = generate_password_hash(password)
-        sql = "INSERT INTO users (username, password, admin) VALUES (:username, :password, false)"
-        db.session.execute(sql, {"username": username, "password": hash_value})
-        db.session.commit()
-        return render_template("login.html")
+        sql = "SELECT id FROM users WHERE username=:username"
+        result = db.session.execute(sql, {"username": username})
+        user = result.fetchone()
+        if user:
+            return render_template("register.html", error="User name is already taken.")
+        else:
+            hash_value = generate_password_hash(password)
+            sql = "INSERT INTO users (username, password, admin) VALUES (:username, :password, false)"
+            db.session.execute(sql, {"username": username, "password": hash_value})
+            db.session.commit()
+            return render_template("login.html")

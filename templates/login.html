@@ -8,6 +8,9 @@
 No account? Register
 <a href="/register">here</a>
 <hr>
+{% if error %}
+    {{ error }}
+{% endif %}
 <form action="/login" method="POST">
     <p>Username:<br>
         <input type="text" name="username"></p>
