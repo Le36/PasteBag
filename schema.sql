@@ -5,3 +5,11 @@ CREATE TABLE users
     password TEXT,
     admin    BOOLEAN
 );
+
+CREATE TABLE pastes
+(
+    id       SERIAL PRIMARY KEY,
+    pasteId  TEXT,
+    paste    TEXT,
+    username TEXT
+)

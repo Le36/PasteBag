@@ -1,12 +1,24 @@
+import random
+import string
+
 from app import app
 from flask import render_template, request, redirect, session
 from db import db
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
-@app.route("/")
+@app.route("/", methods=["POST", "GET"])
 def index():
-    return render_template("index.html")
+    if request.method == "GET":
+        return render_template("index.html")
+    if request.method == "POST":
+        pasteid = random.choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=8)
+        paste = request.form["paste"]
+        username = session.get("username", "Anonymous")
+        sql = "INSERT INTO pastes (pasteid, paste, username) VALUES (:pasteid, :paste, :username)"
+        db.session.execute(sql, {"pasteid": pasteid, "paste": paste, "username": username})
+        db.session.commit()
+        return render_template("paste.html")
 
 
 @app.route("/login", methods=["POST", "GET"])
@@ -16,7 +28,6 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-
         sql = "SELECT id, password FROM users WHERE username=:username"
         result = db.session.execute(sql, {"username": username})
         user = result.fetchone()
