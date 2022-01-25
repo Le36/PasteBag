@@ -1,6 +1,3 @@
-import random
-import string
-
 from app import app
 from flask import render_template, request, redirect, session
 from db import db
@@ -12,13 +9,24 @@ def index():
     if request.method == "GET":
         return render_template("index.html")
     if request.method == "POST":
-        pasteid = random.choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=8)
-        paste = request.form["paste"]
+        import random
+        import string
+        paste_id = "".join(random.choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=8))
+        content = request.form["paste"]
         username = session.get("username", "Anonymous")
         sql = "INSERT INTO pastes (pasteid, paste, username) VALUES (:pasteid, :paste, :username)"
-        db.session.execute(sql, {"pasteid": pasteid, "paste": paste, "username": username})
+        db.session.execute(sql, {"pasteid": paste_id, "paste": content, "username": username})
         db.session.commit()
-        return render_template("paste.html")
+        return redirect("/" + paste_id)
+
+
+@app.route("/<paste_id>", methods=["GET"])
+def paste(paste_id):
+    if request.method == "GET":
+        sql = "SELECT paste FROM pastes WHERE pasteid=:pasteid"
+        result = db.session.execute(sql, {"pasteid": paste_id})
+        fetched = result.fetchone()
+        return render_template("paste.html", content=fetched)
 
 
 @app.route("/login", methods=["POST", "GET"])
