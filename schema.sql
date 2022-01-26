@@ -12,5 +12,6 @@ CREATE TABLE pastes
     pasteId  TEXT UNIQUE,
     paste    TEXT,
     username TEXT,
-    views    INTEGER
+    views    INTEGER,
+    title    TEXT
 );

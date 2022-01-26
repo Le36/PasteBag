@@ -24,7 +24,8 @@
 <br><br><br><br><br><br><br>
 Most viewed pastes:<br>
 {% for paste in pastes %}
-    <a href="/{{ paste.pasteid }}">Views {{ paste.views }}</a>
+    Views: {{ paste.views }}
+    <a href="/{{ paste.pasteid }}">{{ paste.title }}</a>
     <br>
 {% endfor %}
 </body>

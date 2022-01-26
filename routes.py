@@ -7,7 +7,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 @app.route("/", methods=["POST", "GET"])
 def index():
     if request.method == "GET":
-        sql = "SELECT views, pasteid FROM pastes ORDER BY views DESC LIMIT 10"
+        sql = "SELECT views, pasteid, title FROM pastes ORDER BY views DESC LIMIT 10"
         result = db.session.execute(sql)
         pastes = result.fetchall()
         return render_template("index.html", pastes=pastes)
@@ -16,16 +16,18 @@ def index():
         import string
         paste_id = "".join(random.choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=8))
         content = request.form["paste"]
+        title = content[:25]
         username = session.get("username", "Anonymous")
-        sql = "INSERT INTO pastes (pasteid, paste, username, views) VALUES (:pasteid, :paste, :username, 0)"
-        db.session.execute(sql, {"pasteid": paste_id, "paste": content, "username": username})
+        sql = "INSERT INTO pastes (pasteid, paste, username, views, title) " \
+              "VALUES (:pasteid, :paste, :username, 0, :title)"
+        db.session.execute(sql, {"pasteid": paste_id, "paste": content, "username": username, "title": title})
         db.session.commit()
         return redirect("/" + paste_id)
 
 
 @app.route("/<paste_id>", methods=["GET"])
 def paste(paste_id):
-    sql = "SELECT paste, username, views FROM pastes WHERE pasteid=:pasteid"
+    sql = "SELECT paste, username, views, title FROM pastes WHERE pasteid=:pasteid"
     result = db.session.execute(sql, {"pasteid": paste_id})
     fetched = result.fetchone()
     if not fetched:
@@ -35,7 +37,9 @@ def paste(paste_id):
     content = fetched["paste"]
     username = fetched["username"]
     views = fetched["views"]
-    return render_template("paste.html", content=content, username=username, paste_id=paste_id, views=views)
+    title = fetched["title"]
+    return render_template("paste.html", content=content, username=username, paste_id=paste_id, views=views,
+                           title=title)
 
 
 @app.route("/raw/<paste_id>", methods=["GET"])
