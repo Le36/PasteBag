@@ -18,7 +18,7 @@ main page that is sorted by view count.
 ### Anonymous user: ###
 - [x] create pastes
 - [ ] 2 publicity levels for pastes: public and private
-- [ ] see public pastes listed on main page
+- [x] see public pastes listed on main page
 - [x] private pastes have unique id on them that is shown for the creator, this can be then 
 be shared for anybody
 - [x] access private pastes if it has access to the unique id
