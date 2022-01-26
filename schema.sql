@@ -12,4 +12,4 @@ CREATE TABLE pastes
     pasteId  TEXT,
     paste    TEXT,
     username TEXT
-)
+);
