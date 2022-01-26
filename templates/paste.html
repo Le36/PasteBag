@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pastes.css') }}">
     <title>Paste...</title>
 </head>
 <body>
 Paste:
 <br><br>
-{{ content }}
+<div>{{ content }}</div>
 <br><br>
 Created by:
 <br><br>
