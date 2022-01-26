@@ -23,10 +23,14 @@ def index():
 @app.route("/<paste_id>", methods=["GET"])
 def paste(paste_id):
     if request.method == "GET":
-        sql = "SELECT paste FROM pastes WHERE pasteid=:pasteid"
+        sql = "SELECT paste, username FROM pastes WHERE pasteid=:pasteid"
         result = db.session.execute(sql, {"pasteid": paste_id})
         fetched = result.fetchone()
-        return render_template("paste.html", content=fetched)
+        if not fetched:
+            return render_template("missing.html")
+        content = fetched["paste"]
+        username = fetched["username"]
+        return render_template("paste.html", content=content, username=username)
 
 
 @app.route("/login", methods=["POST", "GET"])
