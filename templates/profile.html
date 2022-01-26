@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+Users public pastes:<br>
+{% for paste in pastes %}
+    Views: {{ paste.views }}
+    <a href="/{{ paste.pasteid }}">{{ paste.title }}</a>
+    <br>
+{% endfor %}
+</body>
+</html>

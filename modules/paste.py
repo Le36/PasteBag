@@ -20,7 +20,6 @@ def raw(paste_id):
     fetched = result.fetchone()
     if not fetched:
         return
-    from utils.increment import increment
     increment(paste_id)
     response = make_response(fetched["paste"], 200)
     response.mimetype = "text/plain"

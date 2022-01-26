@@ -4,6 +4,7 @@ from modules.accounts import user_login, user_logout, user_register
 from modules.front import most_viewed, create_paste
 
 from modules.paste import paste, raw
+from modules.profiles import user_profile
 
 
 @app.route("/", methods=["POST", "GET"])
@@ -27,6 +28,12 @@ def norm_paste(paste_id):
 def raw_paste(paste_id):
     raw_data = raw(paste_id)
     return render_template("missing.html") if not raw_data else raw_data
+
+
+@app.route("/u/<username>", methods=["GET"])
+def profile(username):
+    user_pastes = user_profile(username)
+    return render_template("missing.html") if not user_pastes else render_template("profile.html", pastes=user_pastes)
 
 
 @app.route("/login", methods=["POST", "GET"])
