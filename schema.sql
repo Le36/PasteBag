@@ -9,7 +9,8 @@ CREATE TABLE users
 CREATE TABLE pastes
 (
     id       SERIAL PRIMARY KEY,
-    pasteId  TEXT,
+    pasteId  TEXT UNIQUE,
     paste    TEXT,
-    username TEXT
+    username TEXT,
+    views    INTEGER
 );

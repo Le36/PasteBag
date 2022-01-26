@@ -7,14 +7,17 @@ from werkzeug.security import check_password_hash, generate_password_hash
 @app.route("/", methods=["POST", "GET"])
 def index():
     if request.method == "GET":
-        return render_template("index.html")
+        sql = "SELECT views, pasteid FROM pastes ORDER BY views DESC LIMIT 10"
+        result = db.session.execute(sql)
+        pastes = result.fetchall()
+        return render_template("index.html", pastes=pastes)
     if request.method == "POST":
         import random
         import string
         paste_id = "".join(random.choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=8))
         content = request.form["paste"]
         username = session.get("username", "Anonymous")
-        sql = "INSERT INTO pastes (pasteid, paste, username) VALUES (:pasteid, :paste, :username)"
+        sql = "INSERT INTO pastes (pasteid, paste, username, views) VALUES (:pasteid, :paste, :username, 0)"
         db.session.execute(sql, {"pasteid": paste_id, "paste": content, "username": username})
         db.session.commit()
         return redirect("/" + paste_id)
@@ -22,14 +25,17 @@ def index():
 
 @app.route("/<paste_id>", methods=["GET"])
 def paste(paste_id):
-    sql = "SELECT paste, username FROM pastes WHERE pasteid=:pasteid"
+    sql = "SELECT paste, username, views FROM pastes WHERE pasteid=:pasteid"
     result = db.session.execute(sql, {"pasteid": paste_id})
     fetched = result.fetchone()
     if not fetched:
         return render_template("missing.html")
+    from utils.increment import increment
+    increment(paste_id)
     content = fetched["paste"]
     username = fetched["username"]
-    return render_template("paste.html", content=content, username=username, paste_id=paste_id)
+    views = fetched["views"]
+    return render_template("paste.html", content=content, username=username, paste_id=paste_id, views=views)
 
 
 @app.route("/raw/<paste_id>", methods=["GET"])
@@ -39,6 +45,8 @@ def raw_paste(paste_id):
     fetched = result.fetchone()
     if not fetched:
         return render_template("missing.html")
+    from utils.increment import increment
+    increment(paste_id)
     response = make_response(fetched["paste"], 200)
     response.mimetype = "text/plain"
     return response
