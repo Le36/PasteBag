@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect, session
+from flask import render_template, request, redirect, session, make_response
 from db import db
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -22,15 +22,26 @@ def index():
 
 @app.route("/<paste_id>", methods=["GET"])
 def paste(paste_id):
-    if request.method == "GET":
-        sql = "SELECT paste, username FROM pastes WHERE pasteid=:pasteid"
-        result = db.session.execute(sql, {"pasteid": paste_id})
-        fetched = result.fetchone()
-        if not fetched:
-            return render_template("missing.html")
-        content = fetched["paste"]
-        username = fetched["username"]
-        return render_template("paste.html", content=content, username=username)
+    sql = "SELECT paste, username FROM pastes WHERE pasteid=:pasteid"
+    result = db.session.execute(sql, {"pasteid": paste_id})
+    fetched = result.fetchone()
+    if not fetched:
+        return render_template("missing.html")
+    content = fetched["paste"]
+    username = fetched["username"]
+    return render_template("paste.html", content=content, username=username, paste_id=paste_id)
+
+
+@app.route("/raw/<paste_id>", methods=["GET"])
+def raw_paste(paste_id):
+    sql = "SELECT paste FROM pastes WHERE pasteid=:pasteid"
+    result = db.session.execute(sql, {"pasteid": paste_id})
+    fetched = result.fetchone()
+    if not fetched:
+        return render_template("missing.html")
+    response = make_response(fetched["paste"], 200)
+    response.mimetype = "text/plain"
+    return response
 
 
 @app.route("/login", methods=["POST", "GET"])
