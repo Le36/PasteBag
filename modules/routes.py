@@ -12,7 +12,8 @@ def index():
     if request.method == "GET":
         return render_template("index.html", pastes=most_viewed())
     if request.method == "POST":
-        return redirect("/" + create_paste())
+        url = create_paste()
+        return redirect("/" + url) if not url == "empty" else redirect("/")
 
 
 @app.route("/<paste_id>", methods=["GET"])

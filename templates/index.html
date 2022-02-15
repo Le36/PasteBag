@@ -12,7 +12,7 @@
     <a href="/login">Log in</a>
 {% endif %}
 <hr>
-<form action="/" method="POST">
+<form action="/" method="POST" onsubmit="return check(this)">
     Create your paste:
     <br>
     <label>
@@ -21,7 +21,16 @@
     <br>
     <input type="submit" value="Create">
 </form>
-<br><br><br><br><br><br><br>
+<script>
+    function check(form) {
+        if (form.paste.value.length === 0) {
+            alert("Paste cannot be empty!");
+            return false;
+        }
+        return true;
+    }
+</script>
+<br><br><br><br>
 Most viewed pastes:<br>
 {% for paste in pastes %}
     Views: {{ paste.views }}

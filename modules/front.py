@@ -15,6 +15,8 @@ def most_viewed():
 def create_paste():
     paste_id = "".join(random.choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=8))
     content = request.form["paste"]
+    if len(content) == 0:
+        return "empty"
     title = content[:25]
     username = session.get("username", "Anonymous")
     sql = "INSERT INTO pastes (pasteid, paste, username, views, title) " \
