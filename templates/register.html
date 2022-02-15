@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Register to PasteBag</title>
+    <script type="text/javascript" src="/static/check.js"></script>
 </head>
 <body>
 Got account already? Login
@@ -11,11 +12,15 @@ Got account already? Login
 {% if error %}
     {{ error }}
 {% endif %}
-<form action="/register" method="POST">
+<form action="/register" method="POST" onsubmit="return check(this)">
     <p>Username:<br>
-        <input type="text" name="username"></p>
+        <label>
+            <input type="text" name="username">
+        </label></p>
     <p>Password:<br>
-        <input type="password" name="password"></p>
+        <label>
+            <input type="password" name="password">
+        </label></p>
     <input type="submit" value="Register">
 </form>
 </body>

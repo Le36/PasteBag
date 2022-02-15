@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>PasteBag</title>
+    <script type="text/javascript" src="/static/check.js"></script>
 </head>
 <body>
 {% if session.username %}
@@ -21,15 +22,6 @@
     <br>
     <input type="submit" value="Create">
 </form>
-<script>
-    function check(form) {
-        if (form.paste.value.length === 0) {
-            alert("Paste cannot be empty!");
-            return false;
-        }
-        return true;
-    }
-</script>
 <br><br><br><br>
 Most viewed pastes:<br>
 {% for paste in pastes %}

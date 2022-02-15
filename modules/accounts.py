@@ -6,7 +6,11 @@ from utils.db import db
 
 def user_login():
     username = request.form["username"]
+    if len(username) == 0:
+        return "Username cannot be empty."
     password = request.form["password"]
+    if len(password) == 0:
+        return "Password cannot be empty."
     sql = "SELECT id, password FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username": username})
     user = result.fetchone()
@@ -27,12 +31,16 @@ def user_logout():
 
 def user_register():
     username = request.form["username"]
+    if len(username) == 0:
+        return "Username cannot be empty."
     password = request.form["password"]
+    if len(password) == 0:
+        return "Password cannot be empty."
     sql = "SELECT id FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username": username})
     user = result.fetchone()
     if user:
-        return "User name is already taken."
+        return "Username is already taken."
     else:
         hash_value = generate_password_hash(password)
         sql = "INSERT INTO users (username, password, admin) VALUES (:username, :password, false)"
