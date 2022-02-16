@@ -15,11 +15,23 @@
 <hr>
 <form action="/" method="POST" onsubmit="return check(this)">
     Create your paste:
-    <br>
+    <br><br>
     <label>
         <textarea name="paste" rows="30" cols="50"></textarea>
     </label>
-    <br>
+    <br><br>
+    Paste visibility:
+    <label>
+        <input type="radio" name="visibility" value="Public" checked>
+    </label> Public
+    <label>
+        <input type="radio" name="visibility" value="Private">
+    </label> Private
+    <br><br>
+    <label>
+        <input type="checkbox" name="burn">
+    </label> Burn after read
+    <br><br>
     <input type="submit" value="Create">
 </form>
 <br><br><br><br>

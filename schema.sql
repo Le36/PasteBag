@@ -13,5 +13,7 @@ CREATE TABLE pastes
     paste    TEXT,
     username TEXT,
     views    INTEGER,
-    title    TEXT
+    title    TEXT,
+    private  BOOLEAN,
+    burn     BOOLEAN
 );
