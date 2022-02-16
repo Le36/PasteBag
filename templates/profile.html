@@ -5,6 +5,7 @@
     <title></title>
 </head>
 <body>
+{% include "navigation.html" %}
 Users public pastes:<br>
 {% for paste in pastes %}
     Views: {{ paste.views }}

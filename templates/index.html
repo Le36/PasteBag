@@ -6,13 +6,7 @@
     <script type="text/javascript" src="/static/check.js"></script>
 </head>
 <body>
-{% if session.username %}
-    You are logged in as {{ session.username }} |
-    <a href="/logout">Log out</a>
-{% else %}
-    <a href="/login">Log in</a>
-{% endif %}
-<hr>
+{% include "navigation.html" %}
 <form action="/" method="POST" onsubmit="return check(this)">
     Create your paste:
     <br><br>
