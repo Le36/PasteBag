@@ -1,6 +1,7 @@
 from app import app
 from flask import render_template, request, redirect
 from modules.accounts import user_login, user_logout, user_register
+from modules.burn import check_burn, burn
 from modules.front import most_viewed, create_paste
 
 from modules.paste import paste, raw
@@ -21,14 +22,26 @@ def norm_paste(paste_id):
     fetch = paste(paste_id)
     if not fetch:
         return render_template("missing.html")
+    burned = check_burn(paste_id)
+    if burned:
+        return burned
     return render_template("paste.html", content=fetch["paste"], username=fetch["username"], paste_id=paste_id,
                            views=fetch["views"], title=fetch["title"])
 
 
 @app.route("/raw/<paste_id>", methods=["GET"])
 def raw_paste(paste_id):
-    raw_data = raw(paste_id)
+    burned = check_burn(paste_id)
+    if burned:
+        return burned
+    raw_data = raw(paste_id, False)
     return render_template("missing.html") if not raw_data else raw_data
+
+
+@app.route("/burn/<paste_id>", methods=["GET"])
+def burn_paste(paste_id):
+    burned_paste = burn(paste_id)
+    return render_template("missing.html") if not burned_paste else burned_paste
 
 
 @app.route("/u/<username>", methods=["GET"])

@@ -5,7 +5,7 @@ from utils.increment import increment
 
 
 def paste(paste_id):
-    sql = "SELECT paste, username, views, title FROM pastes WHERE pasteid=:pasteid"
+    sql = "SELECT paste, username, views, title, burn FROM pastes WHERE pasteid=:pasteid"
     result = db.session.execute(sql, {"pasteid": paste_id})
     fetched = result.fetchone()
     if not fetched:
@@ -14,8 +14,8 @@ def paste(paste_id):
     return fetched
 
 
-def raw(paste_id):
-    sql = "SELECT paste FROM pastes WHERE pasteid=:pasteid"
+def raw(paste_id, burn):
+    sql = "SELECT paste, burn FROM pastes WHERE pasteid=:pasteid"
     result = db.session.execute(sql, {"pasteid": paste_id})
     fetched = result.fetchone()
     if not fetched:
@@ -23,4 +23,11 @@ def raw(paste_id):
     increment(paste_id)
     response = make_response(fetched["paste"], 200)
     response.mimetype = "text/plain"
+    remove(paste_id) if burn and fetched["burn"] else None
     return response
+
+
+def remove(paste_id):
+    sql = "DELETE FROM pastes WHERE pasteid=:pasteid"
+    db.session.execute(sql, {"pasteid": paste_id})
+    db.session.commit()
