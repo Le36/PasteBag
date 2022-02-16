@@ -2,6 +2,7 @@ from app import app
 from flask import render_template, request, redirect
 from modules.accounts import user_login, user_logout, user_register
 from modules.burn import check_burn, burn
+from modules.contact import contact
 from modules.front import most_viewed, create_paste
 
 from modules.paste import paste, raw, confirm
@@ -76,3 +77,12 @@ def register():
     if request.method == "POST":
         state = user_register()
         return render_template("login.html") if not state else render_template("register.html", error=state)
+
+
+@app.route("/contact", methods=["POST", "GET"])
+def contact_us():
+    if request.method == "GET":
+        return render_template("contact.html")
+    if request.method == "POST":
+        message = contact()
+        return render_template("contact.html", message=message)

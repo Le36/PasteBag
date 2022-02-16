@@ -23,7 +23,7 @@ is sorted by view count.
 - [x] private pastes have unique id on them that is shown for the creator, this can be then be shared for anybody
 - [x] access private pastes if it has access to the unique id
 - [x] create "burn after reading" pastes, that get destroyed after viewing them
-- [ ] send message to admins
+- [x] send message to admins
 
 ### Logged user: ###
 

@@ -2,9 +2,10 @@
 <a href="/"> Home</a> |
 {% if session.username %}
     You are logged in as <a href="/u/{{ session.username }}">{{ session.username }}</a>  |
-    <a href="/logout">Log out</a>
+    <a href="/logout">Log out</a> |
 {% else %}
-    <a href="/login">Log in</a>
+    <a href="/login">Log in</a> |
 {% endif %}
+<a href="/contact"> Contact us</a>
 <hr>
 </body>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact</title>
+    <script type="text/javascript" src="/static/check.js"></script>
+</head>
+<body>
+{% include "navigation.html" %}
+Use this form if you want to send us a message, leave your email or other contact information, so we can contact you.
+{% if message %}
+    <br><br>
+    {{ message }}
+    <br>
+{% endif %}
+<form action="/contact" method="POST" onsubmit="return checkContact(this)">
+    <p>Email:<br>
+        <label>
+            <input type="text" name="email">
+        </label></p>
+    <p>Your message:<br>
+        <label>
+            <textarea name="message" rows="10" cols="20"></textarea>
+        </label>
+        <br><br>
+        <input type="submit" value="Send">
+</form>
+</body>
+</html>

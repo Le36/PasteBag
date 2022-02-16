@@ -17,3 +17,10 @@ CREATE TABLE pastes
     private  BOOLEAN,
     burn     BOOLEAN
 );
+
+CREATE TABLE contact
+(
+    id      SERIAL PRIMARY KEY,
+    email   TEXT,
+    message TEXT
+)
