@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='pastes.css') }}">
+    <script type="text/javascript" src="/static/check.js"></script>
     <title>{{ title }}</title>
 </head>
 <body>
@@ -16,5 +17,11 @@ Created by:
 <a href="/u/{{ username }}">{{ username }}</a>
 <br><br>
 Total views: {{ views }}
+{% if session.username == username %}
+    <br><br>
+    <form action="/{{ paste_id }}" method="POST" onsubmit="return deleteConfirm()">
+        <input type="submit" value="Delete">
+    </form>
+{% endif %}
 </body>
 </html>

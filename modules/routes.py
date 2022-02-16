@@ -4,7 +4,7 @@ from modules.accounts import user_login, user_logout, user_register
 from modules.burn import check_burn, burn
 from modules.front import most_viewed, create_paste
 
-from modules.paste import paste, raw
+from modules.paste import paste, raw, confirm
 from modules.profiles import user_profile
 
 
@@ -17,16 +17,20 @@ def index():
         return redirect("/" + url) if not url == "empty" else redirect("/")
 
 
-@app.route("/<paste_id>", methods=["GET"])
+@app.route("/<paste_id>", methods=["POST", "GET"])
 def norm_paste(paste_id):
-    fetch = paste(paste_id)
-    if not fetch:
-        return render_template("missing.html")
-    burned = check_burn(paste_id)
-    if burned:
-        return burned
-    return render_template("paste.html", content=fetch["paste"], username=fetch["username"], paste_id=paste_id,
-                           views=fetch["views"], title=fetch["title"])
+    if request.method == "GET":
+        fetch = paste(paste_id)
+        if not fetch:
+            return render_template("missing.html")
+        burned = check_burn(paste_id)
+        if burned:
+            return burned
+        return render_template("paste.html", content=fetch["paste"], username=fetch["username"], paste_id=paste_id,
+                               views=fetch["views"], title=fetch["title"])
+    if request.method == "POST":
+        confirm(paste_id)
+        return redirect("/")
 
 
 @app.route("/raw/<paste_id>", methods=["GET"])

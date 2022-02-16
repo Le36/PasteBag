@@ -1,4 +1,4 @@
-from flask import make_response
+from flask import make_response, session
 
 from utils.db import db
 from utils.increment import increment
@@ -31,3 +31,11 @@ def remove(paste_id):
     sql = "DELETE FROM pastes WHERE pasteid=:pasteid"
     db.session.execute(sql, {"pasteid": paste_id})
     db.session.commit()
+
+
+def confirm(paste_id):
+    sql = "SELECT username FROM pastes WHERE pasteid=:pasteid"
+    result = db.session.execute(sql, {"pasteid": paste_id})
+    fetched = result.fetchone()
+    if fetched["username"] == session["username"]:
+        remove(paste_id)
