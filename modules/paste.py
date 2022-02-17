@@ -5,7 +5,7 @@ from utils.increment import increment
 
 
 def paste(paste_id):
-    sql = "SELECT paste, username, views, title, burn FROM pastes WHERE pasteid=:pasteid"
+    sql = "SELECT paste, username, views, title, burn, syntax FROM pastes WHERE pasteid=:pasteid"
     result = db.session.execute(sql, {"pasteid": paste_id})
     fetched = result.fetchone()
     if not fetched:

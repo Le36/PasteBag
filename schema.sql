@@ -15,7 +15,8 @@ CREATE TABLE pastes
     views    INTEGER,
     title    TEXT,
     private  BOOLEAN,
-    burn     BOOLEAN
+    burn     BOOLEAN,
+    syntax   TEXT
 );
 
 CREATE TABLE contact

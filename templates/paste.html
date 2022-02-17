@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='pastes.css') }}">
-    <script type="text/javascript" src="/static/check.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='prism.css') }}">
     <title>{{ title }}</title>
 </head>
 <body>
 {% include "navigation.html" %}
 <a href="/raw/{{ paste_id }}">View raw</a> | Paste:
 <br><br>
-<div>{{ content }}</div>
+<pre class="line-numbers" data-src="/raw/{{ paste_id }}" data-download-link><code class="language-{{ syntax }}">
+{{ content }}
+</code></pre>
 <br><br>
 Created by:
 <br><br>
@@ -23,5 +25,6 @@ Total views: {{ views }}
         <input type="submit" value="Delete">
     </form>
 {% endif %}
+<script src="/static/prism.js"></script>
 </body>
 </html>
