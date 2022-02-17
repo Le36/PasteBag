@@ -27,8 +27,7 @@ def norm_paste(paste_id):
         burned = check_burn(paste_id)
         if burned:
             return burned
-        return render_template("paste.html", content=fetch["paste"], username=fetch["username"], paste_id=paste_id,
-                               views=fetch["views"], title=fetch["title"], syntax=fetch["syntax"])
+        return render_template("paste.html", data=fetch, paste_id=paste_id)
     if request.method == "POST":
         confirm(paste_id)
         return redirect("/")

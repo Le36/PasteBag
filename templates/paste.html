@@ -4,22 +4,25 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='pastes.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='prism.css') }}">
-    <title>{{ title }}</title>
+    <title>{{ data.title }}</title>
 </head>
 <body>
 {% include "navigation.html" %}
 <a href="/raw/{{ paste_id }}">View raw</a> | Paste:
 <br><br>
-<pre class="line-numbers" data-src="/raw/{{ paste_id }}" data-download-link><code class="language-{{ syntax }}">
-{{ content }}
+<pre class="line-numbers" data-src="/raw/{{ data.paste_id }}" data-download-link><code
+        class="language-{{ data.syntax }}">
+{{ viecontent }}
 </code></pre>
 <br><br>
 Created by:
 <br><br>
-<a href="/u/{{ username }}">{{ username }}</a>
+<a href="/u/{{ data.username }}">{{ data.username }}</a>
 <br><br>
-Total views: {{ views }}
-{% if session.username == username %}
+Total views: {{ data.views }}
+<br><br>
+Created at: {{ data.time.strftime("%d/%m/%Y, %H:%M:%S") }}
+{% if session.username == data.username %}
     <br><br>
     <form action="/{{ paste_id }}" method="POST" onsubmit="return deleteConfirm()">
         <input type="submit" value="Delete">

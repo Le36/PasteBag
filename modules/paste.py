@@ -5,7 +5,7 @@ from utils.increment import increment
 
 
 def paste(paste_id):
-    sql = "SELECT P.paste, P.username, V.views, P.title, P.burn, P.syntax " \
+    sql = "SELECT P.paste, P.username, V.views, P.title, P.burn, P.syntax, P.time " \
           "FROM pastes P LEFT JOIN paste_views V ON P.paste_id = V.paste_id WHERE P.paste_id=:paste_id"
     result = db.session.execute(sql, {"paste_id": paste_id})
     fetched = result.fetchone()
