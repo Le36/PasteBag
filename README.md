@@ -24,6 +24,9 @@ is sorted by view count.
 - [x] access private pastes if it has access to the unique id
 - [x] create "burn after reading" pastes, that get destroyed after viewing them
 - [x] send message to admins
+- [x] syntax highlight pastes that contain code
+- [x] download pastes with button
+- [x] copy pastes with button
 
 ### Logged user: ###
 
