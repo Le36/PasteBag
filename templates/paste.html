@@ -8,20 +8,15 @@
 </head>
 <body>
 <script src="/static/prism.js"></script>
+<script>let views = {{ data.views }};
+let creator = "{{ data.username }}";
+let date = "{{ data.time.strftime("%d/%m/%Y, %H:%M:%S") }}"</script>
 {% include "navigation.html" %}
 <br>
 <pre class="line-numbers" data-src="/raw/{{ paste_id }}" data-download-link><code
         class="language-{{ data.syntax }}">
 {{ data.paste }}
 </code></pre>
-<br><br>
-Created by:
-<br><br>
-<a href="/u/{{ data.username }}">{{ data.username }}</a>
-<br><br>
-Total views: {{ data.views }}
-<br><br>
-Created at: {{ data.time.strftime("%d/%m/%Y, %H:%M:%S") }}
 {% if session.username == data.username %}
     <br><br>
     <form action="/{{ paste_id }}" method="POST" onsubmit="return deleteConfirm()">
