@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='pastes.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='prism.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='toolbar.css') }}">
     <title>{{ data.title }}</title>
 </head>
 <body>
+<script src="/static/prism.js"></script>
 {% include "navigation.html" %}
-<a href="/raw/{{ paste_id }}">View raw</a> | Paste:
-<br><br>
-<pre class="line-numbers" data-src="/raw/{{ data.paste_id }}" data-download-link><code
+<br>
+<pre class="line-numbers" data-src="/raw/{{ paste_id }}" data-download-link><code
         class="language-{{ data.syntax }}">
-{{ viecontent }}
+{{ data.paste }}
 </code></pre>
 <br><br>
 Created by:
@@ -28,6 +28,6 @@ Created at: {{ data.time.strftime("%d/%m/%Y, %H:%M:%S") }}
         <input type="submit" value="Delete">
     </form>
 {% endif %}
-<script src="/static/prism.js"></script>
+<script src="/static/toolbar.js"></script>
 </body>
 </html>
