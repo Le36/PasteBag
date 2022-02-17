@@ -7,7 +7,8 @@ from utils.db import db
 
 
 def most_viewed():
-    sql = "SELECT views, pasteid, title FROM pastes WHERE private=false ORDER BY views DESC LIMIT 10"
+    sql = "SELECT V.views, P.paste_id, P.title FROM pastes P LEFT JOIN paste_views V " \
+          "ON P.paste_id = V.paste_id WHERE P.private=false ORDER BY V.views DESC LIMIT 10"
     result = db.session.execute(sql)
     return result.fetchall()
 
@@ -15,7 +16,6 @@ def most_viewed():
 def create_paste():
     content = request.form["paste"]
     syntax = syntax_dict(request.form.get("syntax-choice", "Plain text"))
-    print(syntax)
     if len(content) == 0:
         return "empty"
     private = True if request.form["visibility"] == "Private" else False
@@ -24,11 +24,11 @@ def create_paste():
         random.choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=80 if private else 8))
     title = content[:25]
     username = session.get("username", "Anonymous")
-    sql = "INSERT INTO pastes (pasteid, paste, username, views, title, private, burn, syntax) " \
-          "VALUES (:pasteid, :paste, :username, 0, :title, :private, :burn, :syntax)"
+    sql = "INSERT INTO pastes (paste_id, paste, username, title, private, burn, syntax, time) " \
+          "VALUES (:paste_id, :paste, :username, :title, :private, :burn, :syntax, NOW())"
     db.session.execute(sql,
-                       {"pasteid": paste_id, "paste": content, "username": username, "title": title, "private": private,
-                        "burn": burn, "syntax": syntax})
+                       {"paste_id": paste_id, "paste": content, "username": username, "title": title,
+                        "private": private, "burn": burn, "syntax": syntax})
     db.session.commit()
     return paste_id
 

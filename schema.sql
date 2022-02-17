@@ -9,14 +9,21 @@ CREATE TABLE users
 CREATE TABLE pastes
 (
     id       SERIAL PRIMARY KEY,
-    pasteId  TEXT UNIQUE,
+    paste_id TEXT UNIQUE,
     paste    TEXT,
     username TEXT,
-    views    INTEGER,
     title    TEXT,
     private  BOOLEAN,
     burn     BOOLEAN,
-    syntax   TEXT
+    syntax   TEXT,
+    time     TIMESTAMP
+);
+
+CREATE TABLE paste_views
+(
+    id       SERIAL PRIMARY KEY,
+    paste_id TEXT UNIQUE REFERENCES pastes (paste_id) ON DELETE CASCADE,
+    views    INTEGER
 );
 
 CREATE TABLE contact

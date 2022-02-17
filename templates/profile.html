@@ -9,7 +9,7 @@
 Users public pastes:<br>
 {% for paste in pastes %}
     Views: {{ paste.views }}
-    <a href="/{{ paste.pasteid }}">{{ paste.title }}</a>
+    <a href="/{{ paste.paste_id }}">{{ paste.title }}</a>
     <br>
 {% endfor %}
 </body>

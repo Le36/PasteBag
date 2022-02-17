@@ -12,7 +12,7 @@ Got account already? Login
 {% if error %}
     {{ error }}
 {% endif %}
-<form action="/register" method="POST" onclick="return check(this)">
+<form action="/register" method="POST" onsubmit="return check(this)">
     <p>Username:<br>
         <label>
             <input type="text" name="username">
