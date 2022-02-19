@@ -34,6 +34,8 @@ is sorted by view count.
 - [x] possibility to log in
 - [x] view own pastes
 - [x] delete own pastes
+- [x] have profile picture on profile page, editable
+- [x] have profile "info box" on profile page, editable
 - [x] same features as anonymous user
 
 ### Admin user: ###
