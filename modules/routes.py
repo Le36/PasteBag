@@ -6,7 +6,7 @@ from modules.contact import contact
 from modules.front import most_viewed, create_paste
 
 from modules.paste import paste, raw, confirm
-from modules.profiles import public_pastes, about, picture, post_picture
+from modules.profiles import public_pastes, about, picture, post_picture, exists, post_about
 
 
 @app.route("/", methods=["POST", "GET"])
@@ -51,17 +51,21 @@ def burn_paste(paste_id):
 @app.route("/u/<username>", methods=["POST", "GET"])
 def profile(username):
     if request.method == "GET":
+        if not exists(username) or username == "Anonymous":
+            return render_template("missing.html")
         user_pastes = public_pastes(username)
         info = about(username)
         pic = picture(username)
-        return render_template("missing.html") if not user_pastes or username == "Anonymous" else \
-            render_template("profile.html", pastes=user_pastes, info=about, pic=pic, username=username)
+        return render_template("profile.html", pastes=user_pastes, data=info, pic=pic, username=username)
     if request.method == "POST":
-        return redirect("/u/picture/" + username)
+        if request.form.get("picture"):
+            return redirect("/u/picture/" + username)
+        if request.form.get("about"):
+            return redirect("/u/about/" + username)
 
 
 @app.route("/u/picture/<username>", methods=["POST", "GET"])
-def edit_profile(username):
+def edit_picture(username):
     if request.method == "GET":
         return render_template("picture.html", username=username) if session["username"] == username \
             else render_template("missing.html")
@@ -71,6 +75,16 @@ def edit_profile(username):
             return redirect("/u/" + username)
         else:
             return render_template("picture.html", error=error, username=username)
+
+
+@app.route("/u/about/<username>", methods=["POST", "GET"])
+def edit_about(username):
+    if request.method == "GET":
+        return render_template("about.html", username=username) if session["username"] == username \
+            else render_template("missing.html")
+    if request.method == "POST":
+        post_about(username, request)
+        return redirect("/u/" + username)
 
 
 @app.route("/login", methods=["POST", "GET"])

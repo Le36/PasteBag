@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+</head>
+<body>
+{% include "navigation.html" %}
+Edit profile info:
+<form action="/u/about/{{ username }}" method="POST">
+    <br>
+    <label>
+        <textarea id="textbox" name="about" rows="10" cols="40"></textarea>
+    </label>
+    <br>
+    <input type="submit" value="Apply">
+</form>
+</body>
+</html>

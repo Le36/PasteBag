@@ -18,6 +18,14 @@ def about(username):
     return result.fetchone()
 
 
+def post_about(username, request):
+    info = request.form["about"]
+    sql = "INSERT INTO profile (username,about) VALUES (:username,:about) " \
+          "ON CONFLICT (username) DO UPDATE SET about = :about"
+    db.session.execute(sql, {"username": username, "about": info})
+    db.session.commit()
+
+
 def picture(username):
     sql = "SELECT data FROM picture WHERE username=:username"
     result = db.session.execute(sql, {"username": username})
@@ -42,3 +50,9 @@ def post_picture(username, request):
     db.session.execute(sql, {"username": username, "data": data})
     db.session.commit()
     return
+
+
+def exists(username):
+    sql = "SELECT username FROM users WHERE username=:username"
+    result = db.session.execute(sql, {"username": username})
+    return result.fetchone()
