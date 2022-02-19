@@ -7,7 +7,7 @@ div.code-toolbar > .toolbar {
     z-index: 10;
     top: .3em;
     right: .2em;
-    transition: opacity .3s ease-in-out;
+    transition: opacity .2s ease-in-out;
     opacity: 0
 }
 
@@ -42,7 +42,7 @@ div.code-toolbar > .toolbar > .toolbar-item > button {
 
 div.code-toolbar > .toolbar > .toolbar-item > a, div.code-toolbar > .toolbar > .toolbar-item > button, div.code-toolbar > .toolbar > .toolbar-item > span {
     color: #bbb;
-    font-size: .8em;
+    font-size: 1em;
     padding: 0 .5em;
     background: #f5f2f0;
     background: rgba(224, 224, 224, .2);

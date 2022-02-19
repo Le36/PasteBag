@@ -54,7 +54,7 @@ def profile(username):
         user_pastes = public_pastes(username)
         info = about(username)
         pic = picture(username)
-        return render_template("missing.html") if not user_pastes else \
+        return render_template("missing.html") if not user_pastes or username == "Anonymous" else \
             render_template("profile.html", pastes=user_pastes, info=about, pic=pic, username=username)
     if request.method == "POST":
         return redirect("/u/picture/" + username)
