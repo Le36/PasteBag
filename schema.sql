@@ -26,9 +26,23 @@ CREATE TABLE paste_views
     views    INTEGER
 );
 
+CREATE TABLE profile
+(
+    id       SERIAL PRIMARY KEY,
+    username TEXT UNIQUE REFERENCES users (username),
+    about    TEXT
+);
+
+CREATE TABLE picture
+(
+    id       SERIAL PRIMARY KEY,
+    username TEXT UNIQUE REFERENCES users (username),
+    data     BYTEA
+);
+
 CREATE TABLE contact
 (
     id      SERIAL PRIMARY KEY,
     email   TEXT,
     message TEXT
-)
+);

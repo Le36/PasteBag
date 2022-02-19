@@ -1,12 +1,12 @@
 from app import app
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session
 from modules.accounts import user_login, user_logout, user_register
 from modules.burn import check_burn, burn
 from modules.contact import contact
 from modules.front import most_viewed, create_paste
 
 from modules.paste import paste, raw, confirm
-from modules.profiles import user_profile
+from modules.profiles import public_pastes, about, picture, post_picture
 
 
 @app.route("/", methods=["POST", "GET"])
@@ -48,10 +48,29 @@ def burn_paste(paste_id):
     return render_template("missing.html") if not burned_paste else burned_paste
 
 
-@app.route("/u/<username>", methods=["GET"])
+@app.route("/u/<username>", methods=["POST", "GET"])
 def profile(username):
-    user_pastes = user_profile(username)
-    return render_template("missing.html") if not user_pastes else render_template("profile.html", pastes=user_pastes)
+    if request.method == "GET":
+        user_pastes = public_pastes(username)
+        info = about(username)
+        pic = picture(username)
+        return render_template("missing.html") if not user_pastes else \
+            render_template("profile.html", pastes=user_pastes, info=about, pic=pic, username=username)
+    if request.method == "POST":
+        return redirect("/u/picture/" + username)
+
+
+@app.route("/u/picture/<username>", methods=["POST", "GET"])
+def edit_profile(username):
+    if request.method == "GET":
+        return render_template("picture.html", username=username) if session["username"] == username \
+            else render_template("missing.html")
+    if request.method == "POST":
+        error = post_picture(username, request)
+        if not error:
+            return redirect("/u/" + username)
+        else:
+            return render_template("picture.html", error=error, username=username)
 
 
 @app.route("/login", methods=["POST", "GET"])

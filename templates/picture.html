@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit profile</title>
+</head>
+<body>
+{% include "navigation.html" %}
+{% if error %}
+    Error:<br>{{ error }}
+    <br><br>
+{% endif %}
+Change profile picture:
+<form action="/u/picture/{{ username }}" method="POST" enctype="multipart/form-data">
+    File: <input type="file" name="file">
+    <p>
+        <input type="submit" value="Send">
+</form>
+</body>
+</html>
