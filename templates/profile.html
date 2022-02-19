@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>{{ username }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
 </head>
 <body>
 {% include "navigation.html" %}
@@ -13,11 +14,10 @@
     </form>
 {% endif %}
 <h1>{{ username }}</h1>
-User about:
-<br>
-<pre>{{ data.about }}</pre>
-<br><br>
-<img src="data:image/jpeg;base64,{{ pic }}" alt="">
+<div>
+    <img src="data:image/jpeg;base64,{{ pic }}" alt="">
+    <pre>{{ data.about }}</pre>
+</div>
 <br><br>
 Users public pastes:<br>
 {% for paste in pastes %}

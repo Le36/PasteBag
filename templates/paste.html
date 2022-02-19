@@ -7,10 +7,10 @@
     <title>{{ data.title }}</title>
 </head>
 <body>
-<script src="/static/prism.js"></script>
-<script>let views = {{ data.views }};
+<script>let views = "{{ data.views }}";
 let creator = "{{ data.username }}";
 let date = "{{ data.time.strftime("%d/%m/%Y, %H:%M:%S") }}"</script>
+<script src="/static/prism.js"></script>
 {% include "navigation.html" %}
 <br>
 <pre class="line-numbers" data-src="/raw/{{ paste_id }}" data-download-link><code

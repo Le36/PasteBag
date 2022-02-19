@@ -18,7 +18,7 @@ Prism.plugins.toolbar.registerButton("creator", function (t) {
 });
 
 Prism.plugins.toolbar.registerButton("total-views", {
-    text: "Views: " + views
+    text: "Views: " + (views === "None" ? 0 : views)
 });
 
 Prism.plugins.toolbar.registerButton("date", {
