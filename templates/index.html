@@ -11,7 +11,7 @@
     Create your paste:
     <br><br>
     <label>
-        <textarea name="paste" rows="30" cols="50"></textarea>
+        <textarea id="textbox" name="paste" rows="30" cols="50"></textarea>
     </label>
     <br><br>
     Paste visibility:
@@ -244,5 +244,6 @@ Most viewed pastes:<br>
     <a href="/{{ paste.paste_id }}">{{ paste.title }}</a>
     <br>
 {% endfor %}
+<script type="text/javascript" src="/static/tab.js"></script>
 </body>
 </html>
