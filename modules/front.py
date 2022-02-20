@@ -238,4 +238,4 @@ def syntax_dict(syntax):
               "YANG": "yang"}
     if not syntax:
         syntax = "Plain text"
-    return values[syntax]
+    return values.get(syntax, "Plain text")

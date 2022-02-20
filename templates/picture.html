@@ -6,15 +6,17 @@
 </head>
 <body>
 {% include "navigation.html" %}
-{% if error %}
+<div class="accounts">{% if error %}
     Error:<br>{{ error }}
     <br><br>
 {% endif %}
-Change profile picture:
-<form action="/u/picture/{{ username }}" method="POST" enctype="multipart/form-data">
-    File: <input type="file" name="file">
-    <p>
-        <input type="submit" value="Send">
-</form>
+    Change profile picture:<br><br>
+    <form action="/u/picture/{{ username }}" method="POST" enctype="multipart/form-data">
+        File: <input type="file" name="file">
+        <p>
+            <input type="submit" value="Send">
+    </form>
+</div>
+
 </body>
 </html>

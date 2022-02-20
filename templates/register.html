@@ -6,22 +6,24 @@
     <script type="text/javascript" src="/static/check.js"></script>
 </head>
 <body>
-Got account already? Login
-<a href="/login">here</a>
-<hr>
-{% if error %}
-    {{ error }}
-{% endif %}
-<form action="/register" method="POST" onsubmit="return check(this)">
-    <p>Username:<br>
-        <label>
-            <input type="text" name="username">
-        </label></p>
-    <p>Password:<br>
-        <label>
-            <input type="password" name="password">
-        </label></p>
-    <input type="submit" value="Register">
-</form>
+{% include "navigation.html" %}
+<div class="accounts"><h1>Got account? Login
+    <a href="/login">here</a></h1>
+    <br>
+    {% if error %}
+        {{ error }}<br>
+    {% endif %}
+    <form action="/login" method="POST" onsubmit="return check(this)">
+        <p>Username:<br>
+            <label>
+                <input type="text" name="username">
+            </label></p>
+        <p>Password:<br>
+            <label>
+                <input type="password" name="password">
+            </label></p>
+        <input type="submit" value="Log in">
+    </form>
+</div>
 </body>
 </html>

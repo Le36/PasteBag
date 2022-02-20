@@ -6,14 +6,15 @@
 </head>
 <body>
 {% include "navigation.html" %}
-Edit profile info:
-<form action="/u/about/{{ username }}" method="POST">
-    <br>
-    <label>
-        <textarea id="textbox" name="about" rows="10" cols="40"></textarea>
-    </label>
-    <br>
-    <input type="submit" value="Apply">
-</form>
+<div class="accounts">Edit profile info:
+    <form action="/u/about/{{ username }}" method="POST">
+        <br>
+        <label>
+            <textarea id="textbox" name="about" rows="10" cols="40"></textarea>
+        </label>
+        <br>
+        <input type="submit" value="Apply">
+    </form>
+</div>
 </body>
 </html>

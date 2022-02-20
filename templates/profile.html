@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ username }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}">
 </head>
 <body>
 {% include "navigation.html" %}
-{% if session.username == username %}
-    <form action="/u/{{ username }}" method="POST">
-        <input type="submit" name="picture" value="Change profile picture">
-        <input type="submit" name="about" value="Edit profile info">
-    </form>
-{% endif %}
-<h1>{{ username }}</h1>
-<div>
-    <img src="data:image/jpeg;base64,{{ pic }}" alt="">
-    <pre>{{ data.about }}</pre>
+<div class="container">
+    <h1>{{ username }}</h1><br>
+    {% if session.username == username %}
+        <form action="/u/{{ username }}" method="POST">
+            <input type="submit" name="picture" value="Change profile picture" style="margin-left: 20px;">
+            <input type="submit" name="about" value="Edit profile info">
+        </form>
+    {% endif %}
+    <div>
+        <img src="data:image/jpeg;base64,{{ pic }}" alt="">
+        <br><br>
+        <pre>{{ data.about }}</pre>
+    </div>
+    <br><br>
+    Users public pastes:<br>
+    {% for paste in pastes %}
+        Views: {{ paste.views }}
+        <a href="/{{ paste.paste_id }}">{{ paste.title }}</a>
+        <br>
+    {% endfor %}<br><br>
 </div>
-<br><br>
-Users public pastes:<br>
-{% for paste in pastes %}
-    Views: {{ paste.views }}
-    <a href="/{{ paste.paste_id }}">{{ paste.title }}</a>
-    <br>
-{% endfor %}
 </body>
 </html>
