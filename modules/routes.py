@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect, session
-from modules.accounts import user_login, user_logout, user_register
+from modules.accounts import user_login, user_logout, user_register, check_csrf, paste_csrf
 from modules.admin import all_pastes
 from modules.burn import check_burn, burn
 from modules.contact import contact
@@ -30,6 +30,7 @@ def norm_paste(paste_id):
             return burned
         return render_template("paste.html", data=fetch, paste_id=paste_id)
     if request.method == "POST":
+        check_csrf()
         confirm(paste_id)
         return redirect("/")
 
@@ -71,6 +72,7 @@ def edit_picture(username):
         return render_template("picture.html", username=username) if session["username"] == username \
             else render_template("missing.html")
     if request.method == "POST":
+        check_csrf()
         error = post_picture(username, request)
         if not error:
             return redirect("/u/" + username)
@@ -84,6 +86,7 @@ def edit_about(username):
         return render_template("about.html", username=username) if session["username"] == username \
             else render_template("missing.html")
     if request.method == "POST":
+        check_csrf()
         post_about(username, request)
         return redirect("/u/" + username)
 

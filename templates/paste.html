@@ -21,6 +21,7 @@ let date = "{{ data.time.strftime("%d/%m/%Y, %H:%M:%S") }}"</script>
         <br><br>
         <form action="/{{ paste_id }}" method="POST" onsubmit="return deleteConfirm()">
             <input type="submit" value="Delete">
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
         </form>
     {% endif %}</div>
 

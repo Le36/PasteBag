@@ -7,16 +7,15 @@
 </head>
 <body>
 {% include "navigation.html" %}
-
 <div class="container">
-    <h1>Create your paste:</h1><br>
+    <h1>New paste:</h1><br>
     <form action="/" method="POST" onsubmit="return check(this)">
         <div class="row">
             <div class="col-25">
                 <label for="paste">Paste:</label>
             </div>
             <div class="col-75">
-                <textarea id="textbox" name="paste" placeholder="Copy your paste here..."
+                <textarea id="textbox" name="paste" placeholder="CTRL + V.."
                           style="height:200px"></textarea>
             </div>
         </div>
@@ -60,6 +59,7 @@
         </div>
         <div class="row">
             <input type="submit" value="Create"></div>
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 </div>
 <div class="container">Most viewed pastes:<br>

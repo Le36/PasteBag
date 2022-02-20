@@ -3,6 +3,7 @@ import random
 
 from flask import request, session
 
+from modules.accounts import paste_csrf
 from utils.db import db
 
 
@@ -24,6 +25,8 @@ def create_paste():
         random.choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=80 if private else 8))
     title = content[:25]
     username = session.get("username", "Anonymous")
+    if paste_csrf():
+        username = "Anonymous"
     sql = "INSERT INTO pastes (paste_id, paste, username, title, private, burn, syntax, time) " \
           "VALUES (:paste_id, :paste, :username, :title, :private, :burn, :syntax, NOW())"
     db.session.execute(sql,

@@ -1,4 +1,6 @@
-from flask import request, session
+import secrets
+
+from flask import request, session, abort
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from utils.db import db
@@ -20,6 +22,7 @@ def user_login():
         hash_value = user.password
         if check_password_hash(hash_value, password):
             session["username"] = username
+            session["csrf_token"] = secrets.token_hex(16)
             if user.admin:
                 session["admin"] = True
             else:
@@ -32,6 +35,7 @@ def user_login():
 def user_logout():
     del session["username"]
     del session["admin"]
+    del session["csrf_token"]
 
 
 def user_register():
@@ -52,3 +56,12 @@ def user_register():
         db.session.execute(sql, {"username": username, "password": hash_value})
         db.session.commit()
         return
+
+
+def check_csrf():
+    if session.get("csrf_token") != request.form["csrf_token"]:
+        abort(403)
+
+
+def paste_csrf():
+    return session.get("csrf_token") != request.form["csrf_token"]
