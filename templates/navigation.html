@@ -1,12 +1,18 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='pastes.css') }}">
 <body>
-<a href="/"> Home</a> |
-{% if session.username %}
-    You are logged in as <a href="/u/{{ session.username }}">{{ session.username }}</a>  |
-    <a href="/logout">Log out</a> |
-{% else %}
-    <a href="/login">Log in</a> |
-{% endif %}
-<a href="/contact"> Contact us</a>
+<nav class="navMenu">
+    <a href="/">Home</a>
+    {% if session.username %}
+        <a href="/u/{{ session.username }}">{{ session.username }}</a>
+        <a href="/logout">Log out</a>
+    {% else %}
+        <a href="/login">Log in</a>
+    {% endif %}
+    <a href="/contact">Contact</a>
+    {% if session.admin %}<a href="/admin"> Admin panel</a>
+    {% endif %}
+    <div class="dot"></div>
+</nav>
+<br><br><br><br><br>
 <hr>
 </body>

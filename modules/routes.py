@@ -1,6 +1,7 @@
 from app import app
 from flask import render_template, request, redirect, session
 from modules.accounts import user_login, user_logout, user_register
+from modules.admin import all_pastes
 from modules.burn import check_burn, burn
 from modules.contact import contact
 from modules.front import most_viewed, create_paste
@@ -118,3 +119,13 @@ def contact_us():
     if request.method == "POST":
         message = contact()
         return render_template("contact.html", message=message)
+
+
+@app.route("/admin", methods=["POST", "GET"])
+def admin():
+    if request.method == "GET":
+        if session["admin"]:
+            pastes = all_pastes()
+            return render_template("admin.html", pastes=pastes)
+        else:
+            return render_template("missing.html")

@@ -11,7 +11,7 @@ def user_login():
     password = request.form["password"]
     if len(password) == 0:
         return "Password cannot be empty."
-    sql = "SELECT id, password FROM users WHERE username=:username"
+    sql = "SELECT password, admin FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username": username})
     user = result.fetchone()
     if not user:
@@ -20,6 +20,10 @@ def user_login():
         hash_value = user.password
         if check_password_hash(hash_value, password):
             session["username"] = username
+            if user.admin:
+                session["admin"] = True
+            else:
+                session["admin"] = False
             return
         else:
             return "Invalid password."
@@ -27,6 +31,7 @@ def user_login():
 
 def user_logout():
     del session["username"]
+    del session["admin"]
 
 
 def user_register():

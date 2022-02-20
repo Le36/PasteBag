@@ -1,10 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
 div {
     white-space: pre-wrap;
 }
 
 body {
-    background: #212121;
     color: #e0e0e0;
+    background: #272727;
+    font-family: "Montserrat", sans-serif;
 }
 
 a:link {
@@ -21,4 +24,49 @@ a:hover {
 
 a:active {
     color: #abffcf;
+}
+
+table, th, td {
+    border: 1px solid;
+    color: #e0e0e0;
+}
+
+tbody tr:nth-child(odd) {
+    background: #101010;
+}
+
+tbody tr:nth-child(even) {
+    background: #212121;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.navMenu {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.navMenu a {
+    color: #f6f4e6;
+    text-decoration: none;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display: inline-block;
+    width: 130px;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+
+.navMenu a:hover {
+    color: #fddb3a;
 }

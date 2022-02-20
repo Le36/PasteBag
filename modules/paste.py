@@ -38,5 +38,5 @@ def confirm(paste_id):
     sql = "SELECT username FROM pastes WHERE paste_id=:paste_id"
     result = db.session.execute(sql, {"paste_id": paste_id})
     fetched = result.fetchone()
-    if fetched["username"] == session["username"]:
+    if fetched["username"] == session["username"] or session["admin"]:
         remove(paste_id)

@@ -8,7 +8,7 @@ This project will be a clone of similar more known products such as Pastebin or 
 and having much lesser features.
 
 Main features include uploading pastes and viewing them. There will also be support for user accounts, to have
-possibility to edit or delete created pastes.
+possibility to delete created pastes.
 
 # Features #
 
@@ -40,6 +40,6 @@ is sorted by view count.
 
 ### Admin user: ###
 
-- [ ] list of public and private pastes
-- [ ] can delete any paste
-- [ ] same features as logged and anonymous user
+- [x] list of public and private pastes
+- [x] can delete any paste
+- [x] same features as logged and anonymous user
