@@ -13,16 +13,17 @@ let date = "{{ data.time.strftime("%d/%m/%Y, %H:%M:%S") }}"</script>
 <script src="/static/prism.js"></script>
 {% include "navigation.html" %}
 <br>
-<pre class="line-numbers" data-src="/raw/{{ paste_id }}" data-download-link><code
+<div class="paste"><pre class="line-numbers" data-src="/raw/{{ paste_id }}" data-download-link><code
         class="language-{{ data.syntax }}">
 {{ data.paste }}
 </code></pre>
-{% if session.username == data.username or session.admin %}
-    <br><br>
-    <form action="/{{ paste_id }}" method="POST" onsubmit="return deleteConfirm()">
-        <input type="submit" value="Delete">
-    </form>
-{% endif %}
+    {% if session.username == data.username or session.admin %}
+        <br><br>
+        <form action="/{{ paste_id }}" method="POST" onsubmit="return deleteConfirm()">
+            <input type="submit" value="Delete">
+        </form>
+    {% endif %}</div>
+
 <script src="/static/toolbar.js"></script>
 </body>
 </html>

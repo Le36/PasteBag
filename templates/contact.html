@@ -7,23 +7,38 @@
 </head>
 <body>
 {% include "navigation.html" %}
-Use this form if you want to send us a message, leave your email or other contact information, so we can contact you.
-{% if message %}
-    <br><br>
-    {{ message }}
-    <br>
-{% endif %}
-<form action="/contact" method="POST" onsubmit="return checkContact(this)">
-    <p>Email:<br>
-        <label>
-            <input type="text" name="email">
-        </label></p>
-    <p>Your message:<br>
-        <label>
-            <textarea name="message" rows="10" cols="20"></textarea>
-        </label>
+<div class="container">
+    <h1>Contact us</h1><br>
+    Use this form if you want to send us a message, leave your email or other contact information, so we can contact
+    you.
+    {% if message %}
         <br><br>
-        <input type="submit" value="Send">
-</form>
+        {{ message }}
+        <br>
+    {% endif %}
+    <br><br>
+    <form action="/contact" method="POST" onsubmit="return checkContact(this)">
+        <div class="row">
+            <div class="col-25">
+                <label for="email">Email:</label>
+            </div>
+            <div class="col-75">
+                <input type="text" name="email" placeholder="Contact info..">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-25">
+                <label for="message">Your message:</label>
+            </div>
+            <div class="col-75">
+                <textarea name="message" placeholder="Your message.." style="height:200px"></textarea>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <input type="submit" value="Send">
+        </div>
+    </form>
+</div>
 </body>
 </html>
