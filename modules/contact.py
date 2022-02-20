@@ -10,9 +10,13 @@ def contact():
     message = request.form["message"]
     if len(message) == 0:
         return "Message cannot be empty."
-    print(email)
-    print(message)
     sql = "INSERT INTO contact (email, message) VALUES (:email, :message)"
     db.session.execute(sql, {"email": email, "message": message})
     db.session.commit()
     return "Message sent successfully!"
+
+
+def delete_contact(number):
+    sql = "DELETE FROM contact WHERE id=:id"
+    db.session.execute(sql, {"id": number})
+    db.session.commit()

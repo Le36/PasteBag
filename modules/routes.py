@@ -1,9 +1,9 @@
 from app import app
 from flask import render_template, request, redirect, session
 from modules.accounts import user_login, user_logout, user_register, check_csrf, paste_csrf
-from modules.admin import all_pastes
+from modules.admin import all_pastes, all_contacts
 from modules.burn import check_burn, burn
-from modules.contact import contact
+from modules.contact import contact, delete_contact
 from modules.front import most_viewed, create_paste
 
 from modules.paste import paste, raw, confirm
@@ -127,8 +127,38 @@ def contact_us():
 @app.route("/admin", methods=["POST", "GET"])
 def admin():
     if request.method == "GET":
-        if session["admin"]:
+        if session.get("admin"):
             pastes = all_pastes()
             return render_template("admin.html", pastes=pastes)
+        else:
+            return render_template("missing.html")
+    if request.method == "POST":
+        if session.get("admin"):
+            return redirect("/admin2")
+        else:
+            return render_template("missing.html")
+
+
+@app.route("/admin2", methods=["POST", "GET"])
+def admin2():
+    if request.method == "GET":
+        if session.get("admin"):
+            contacts = all_contacts()
+            return render_template("admin2.html", contacts=contacts)
+        else:
+            return render_template("missing.html")
+    if request.method == "POST":
+        if session.get("admin"):
+            return redirect("/admin")
+        else:
+            return render_template("missing.html")
+
+
+@app.route("/admin2/delete/<number>", methods=["GET"])
+def admin2_delete(number):
+    if request.method == "GET":
+        if session.get("admin"):
+            delete_contact(number)
+            return redirect("/admin2")
         else:
             return render_template("missing.html")

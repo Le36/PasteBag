@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin panel</title>
+    <title>Admin panel2</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
@@ -11,28 +11,26 @@
 <body>
 {% include "navigation.html" %}
 <div style="padding: 5%">
-    <form action="/admin" method="POST">
-        <button type="submit" style="margin-left: 20px">View contact forms</button>
+    <form action="/admin2" method="POST">
+        <button type="submit" style="margin-left: 20px">View all pastes</button>
     </form>
     <h1>Admin panel</h1>
     <table id="data" class="table table-striped">
         <thead>
         <tr>
-            <th>Views</th>
-            <th>Title</th>
-            <th>Private</th>
-            <th>Burn</th>
-            <th>Author</th>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-        {% for paste in pastes %}
+        {% for contact in contacts %}
             <tr>
-                <td>{{ paste.views }}</td>
-                <td><a href="/{{ paste.paste_id }}">{{ paste.title }}</a></td>
-                <td>{{ paste.private }}</td>
-                <td>{{ paste.burn }}</td>
-                <td><a href="/u/{{ paste.username }}">{{ paste.username }}</a></td>
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.message }}</td>
+                <td><a href="/admin2/delete/{{ contact.id }}">Delete</a></td>
             </tr>
         {% endfor %}
         </tbody>
