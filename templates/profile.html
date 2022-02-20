@@ -20,12 +20,13 @@
         <pre>{{ data.about }}</pre>
     </div>
     <br><br>
-    Users public pastes:<br>
-    {% for paste in pastes %}
+    Users public pastes:<br><br>
+    <div class="pastes">{% for paste in pastes %}
         Views: {{ paste.views }}
         <a href="/{{ paste.paste_id }}">{{ paste.title }}</a>
         <br>
-    {% endfor %}<br><br>
+    {% endfor %}<br><br></div>
+
 </div>
 </body>
 </html>

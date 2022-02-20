@@ -6,17 +6,20 @@
 </head>
 <body>
 {% include "navigation.html" %}
-You are about to open "burn after read" paste. After opening the paste, it will be removed from our servers and cannot
-be opened again. If it contains important information, you should probably save it to your device before closing the
-page.
-<br><br>
-Do you want to proceed?
-<br><br>
-<form action="/burn/{{ paste_id }}">
-    <button type="submit">Yes</button>
-</form>
-<form action="/">
-    <button type="submit">No</button>
-</form>
+<div class="container"><h1>Burn after read</h1><br>
+    You are about to open "burn after read" paste. After opening the paste, it will be removed from
+    our servers and cannot
+    be opened again. If it contains important information, you should probably save it to your device before closing the
+    page.
+    <br><br>
+    Do you want to proceed?
+    <br><br>
+    <form action="/burn/{{ paste_id }}">
+        <button type="submit" style="margin-left: 20px">Yes</button>
+    </form>
+    <form action="/">
+        <button type="submit">No</button>
+    </form>
+</div>
 </body>
 </html>

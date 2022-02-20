@@ -59,15 +59,18 @@
         </div>
         <div class="row">
             <input type="submit" value="Create"></div>
-            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form>
 </div>
-<div class="container">Most viewed pastes:<br>
-{% for paste in pastes %}
-    Views: {{ paste.views }}
-    <a href="/{{ paste.paste_id }}">{{ paste.title }}</a>
-    <br>
-{% endfor %}</div>
+<div class="container">
+    <h3>Top 100:</h3><br><br>
+    <div class="pastes">
+        {% for paste in pastes %}
+            Views: {{ paste.views }}
+            <a href="/{{ paste.paste_id }}">{{ paste.title }}</a>
+            <br>
+        {% endfor %}</div>
+</div>
 <script type="text/javascript" src="/static/tab.js"></script>
 </body>
 </html>

@@ -85,7 +85,7 @@ label {
     display: inline-block;
 }
 
-input[type=submit] {
+input[type=submit], button[type=submit] {
     background: linear-gradient(#272727, #171717, #272727);
     color: #f6f4e6;
     border: 1px solid;
@@ -102,7 +102,7 @@ input[type=submit] {
     transition: all 0.2s ease-in-out;
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover, button[type=submit]:hover {
     color: LIME;
 }
 
@@ -142,6 +142,12 @@ input[type='radio']:checked:after {
     padding: 3% 30% 3%;
 }
 
+.pastes {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+}
+
 .col-25 {
     float: left;
     width: 25%;
@@ -160,10 +166,13 @@ input[type='radio']:checked:after {
     clear: both;
 }
 
-@media screen and (max-width: 600px) {
-    .col-25, .col-75, input[type=submit] {
+@media screen and (max-width: 650px) {
+    .col-25, .col-75, input[type=submit], .pastes {
         width: 100%;
         margin-top: 0;
+        columns: 1;
+        -webkit-columns: 1;
+        -moz-columns: 1;
     }
 }
 

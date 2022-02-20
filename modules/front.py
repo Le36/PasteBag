@@ -9,7 +9,7 @@ from utils.db import db
 
 def most_viewed():
     sql = "SELECT V.views, P.paste_id, P.title FROM pastes P LEFT JOIN paste_views V " \
-          "ON P.paste_id = V.paste_id WHERE P.private=false ORDER BY V.views DESC LIMIT 10"
+          "ON P.paste_id = V.paste_id WHERE P.private=false ORDER BY V.views DESC LIMIT 100"
     result = db.session.execute(sql)
     return result.fetchall()
 
